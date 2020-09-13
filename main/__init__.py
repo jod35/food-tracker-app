@@ -2,6 +2,7 @@ from flask import Flask
 from main.utils.database import db
 from main.api.views import api_bp
 from main.config import Config
+from main.models.users import User
 
 
 app =Flask(__name__)
@@ -16,5 +17,5 @@ db.init_app(app)
 
 @app.shell_context_processor
 def make_shell_context():
-    return {'app':app}
+    return {'app':app,'db':db,'User':User}
     

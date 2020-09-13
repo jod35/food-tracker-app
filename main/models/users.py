@@ -1,6 +1,9 @@
 from main import db
 from werkzeug.security import generate_password_hash,check_password_hash
 
+from marshmallow_sqlalchemy import ModelSchema
+
+from marshmallow import fields
 
 
 class User(db.Model):
@@ -27,4 +30,15 @@ class User(db.Model):
         db.session.add(self)
         db.session.commit()
 
+ 
+class UserSchema(ModelSchema):
+    class Meta(ModelSchema.Meta):
+        model =User
+        sqla_session=db.session
+
+
+
+    usermame=fields.String(required=True)
+    email=fields.String(required=True)
+    passworz=fields.String(required=False)
 
