@@ -22,4 +22,24 @@ def get_all_users():
         {"userss": users,
          "success":True}))
 
+@api_bp.route('/users',methods=['POST'])
+def create_user():
+    username=request.form.get('username')
+    email=request.form.get('email')
+    password=request.form.get('password')
+
+    new_user=User(username=username,email=email)
+
+    new_user.set_password(password)
+
+    new_user.save()
+
+    user_schema=UserSchema()
+
+    user=UserSchema.dump(new_user)
+
+    return make_response(
+            jsonify({"message":"Resource added successfully",
+                "user":user}
+
 
