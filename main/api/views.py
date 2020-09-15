@@ -13,22 +13,19 @@ def hello():
 @api_bp.route('/users',methods=['GET'])
 def get_all_users():
     users=User.query.all()
-
-    user_data={}
+    users_data=[]
+    
 
     for user in users:
+        user_data={}
         user_data['username']=user.username
         user_data['email']=user.email
 
-        user_data['password']=user.password
-
-    print(user_data)
-
-    
-
+        user_data['password']=user.password       
+        users_data.append(user_data)
 
     return make_response(jsonify(
-        {"users": user_data
+        {"users": users_data
 
             ,
          "success":True}))
@@ -43,6 +40,11 @@ def create_user():
 
     new_user.set_password(password)
 
+    new_user.save()
+    
+    user={"username":new_user.username,
+          "email":new_user.email,
+          "password":new_user.password}
 
     return make_response(
             jsonify({"message":"Resource added successfully",
