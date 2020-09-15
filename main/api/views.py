@@ -50,4 +50,27 @@ def create_user():
             jsonify({"message":"Resource added successfully",
                 "user":user}))
 
+@api_bp.route('/users/<int:id>',methods=['GET'])
+def get_user_by_id(id):
+    user=User.query.get_or_404(id)
 
+    user_data={"username":user.username,
+               "email":user.email,
+               "password":user.password}
+
+    return make_response(
+            jsonify({"user":user_data,
+                "success":True}),200)
+
+@api_bp.route('/users/<int:id>',methods=['DELETE'])
+def delete_user_account(id):
+    user_to_delete=User.query.get_or_404(id)
+
+    user_to_delete.delete_account()
+
+    return make_response(jsonify(
+        {"user":{"username":user_to_delete.username,
+        "email":user_to_delete.email,
+        "password":user_to_delete.password},
+        "message":"User deleted successfully",
+        "success":True}),200)

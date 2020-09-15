@@ -23,7 +23,7 @@ class User(db.Model):
 
 
     def delete_account(self):
-        db.session.delete()
+        db.session.delete(self)
         db.session.commit()
 
     def save(self):
