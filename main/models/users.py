@@ -31,14 +31,5 @@ class User(db.Model):
         db.session.commit()
 
  
-class UserSchema(ModelSchema):
-    class Meta(ModelSchema.Meta):
-        model =User
-        sqla_session=db.session
 
-
-
-    usermame=fields.String(required=True)
-    email=fields.String(required=True)
-    passworz=fields.String(required=False)
 

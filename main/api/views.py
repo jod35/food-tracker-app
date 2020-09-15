@@ -1,6 +1,6 @@
 from flask import request,make_response,Blueprint,jsonify
 
-from main.models.users import User,UserSchema
+from main.models.users import User
 
 api_bp=Blueprint('api_bp',__name__)
 
@@ -14,12 +14,23 @@ def hello():
 def get_all_users():
     users=User.query.all()
 
-    user_schema=UserSchema()
+    user_data={}
 
-    user=user_schema.dump(users)
+    for user in users:
+        user_data['username']=user.username
+        user_data['email']=user.email
+
+        user_data['password']=user.password
+
+    print(user_data)
+
+    
+
 
     return make_response(jsonify(
-        {"userss": users,
+        {"users": user_data
+
+            ,
          "success":True}))
 
 @api_bp.route('/users',methods=['POST'])
@@ -32,14 +43,9 @@ def create_user():
 
     new_user.set_password(password)
 
-    new_user.save()
-
-    user_schema=UserSchema()
-
-    user=UserSchema.dump(new_user)
 
     return make_response(
             jsonify({"message":"Resource added successfully",
-                "user":user}
+                "user":user}))
 
 
