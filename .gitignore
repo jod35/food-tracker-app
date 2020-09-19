@@ -1,6 +1,7 @@
 *.pyc
+*.swm
 *.swp
-*.swo
 *.swn
+*.swo
 .pytest_cache
 __pycache__
