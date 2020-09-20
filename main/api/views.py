@@ -1,6 +1,6 @@
 from flask import request, make_response, Blueprint, jsonify
-
 from main.models.users import User, UserSchema
+from flask_jwt_extended import jwt_required
 from main.utils.database import db
 
 api_bp = Blueprint('api_bp', __name__)
@@ -12,7 +12,9 @@ def hello():
 
 
 # Get all users
+
 @api_bp.route('/users', methods=['GET'])
+@jwt_required
 def get_all_users():
     get_users = User.query.all()
 
@@ -52,6 +54,7 @@ def create_user():
 
 
 @api_bp.route('/users/<int:id>', methods=['GET'])
+@jwt_required
 def get_user_by_id(id):
     user = User.query.get_or_404(id)
 
@@ -67,6 +70,7 @@ def get_user_by_id(id):
 
 
 @api_bp.route('/users/<int:id>', methods=['DELETE'])
+@jwt_required
 def delete_user_account(id):
     user_to_delete = User.query.get_or_404(id)
 
@@ -86,6 +90,7 @@ def delete_user_account(id):
 
 # update a user account
 @api_bp.route('/users/<int:id>', methods=['PUT'])
+@jwt_required
 def update_user_info(id):
     user_to_update = User.query.get_or_404(id)
     user_schema = UserSchema(only=['id', 'username', 'email'])
