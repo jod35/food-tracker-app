@@ -46,6 +46,12 @@ def create_user():
                     email=email,
                     )
 
+    new_user.set_password(password)
+
+    user_schema = UserSchema()
+
+    user = user_schema.dump(new_user)
+
     return make_response(
         jsonify({"message": "Resource added successfully",
                  "success": True}), 201)
@@ -86,62 +92,3 @@ def delete_user_account(id):
         {"user": user,
          "message": "User deleted successfully",
          "success": True}), 200)
-
-
-# update a user account
-@api_bp.route('/users/<int:id>', methods=['PUT'])
-@jwt_required
-def update_user_info(id):
-    user_to_update = User.query.get_or_404(id)
-    user_schema = UserSchema(only=['id', 'username', 'email'])
-
-    data = request.get_json()
-
-    if data['username']:
-        user_to_update.username = data['username']
-
-    if data['email']:
-        user_to_update.email = data['email']
-
-    db.session.add(user_to_update)
-    db.session.commit()
-
-    user = user_schema.dump(user_to_update)
-
-    return make_response(
-        jsonify({
-            "message": "Account Info update successfully",
-            "user": user,
-            "success": True
-        }), 200
-    )
-
-# reset a password
-
-
-@api_bp.route('/users/<int:id>', methods=['PATCH'])
-def reset_password(id):
-    data = request.get_json()
-
-    user_to_update = User.query.get_or_404(id)
-
-    if data['old_password']:
-        old_password = data['old_password']
-
-    if data['new_password']:
-        new_password = data['new_password']
-
-    if user_to_update.check_password(old_password) and new_password:
-        user_to_update.password = new_password
-        db.session.commit()
-        return make_response(
-            jsonify(
-                {
-                    "message": "Password Reset Successfull",
-                    "success": True
-                }
-            )
-        )
-
-    else:
-        return make_response(jsonify({"Please provide the last password you used."}))

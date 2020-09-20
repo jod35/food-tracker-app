@@ -13,6 +13,7 @@ The backend is a REST API written in Python using:
 - Flask (web framework)
 - Flask-SQLAlchemy (Object Relational Mapper for SQL Databases)
 - Flask-Marshmallow (Object SErialization and Desrialization library)
+- FLASK-JWT-Extended (JWT Authentication For Flask)
 - SQLite (Database In Development)
 - PostgreSQL (Database In Production)
 
@@ -24,9 +25,13 @@ On the other hand the `/auth` routes are for user authentication and authorizati
 
 ### A table about the API
 
-| ENDPOINT | HTTP VERB | DESCRIPTION | DATA RETURNED |
-| -------- | --------- | ----------- | ------------- |
-
+| ENDPOINT         | HTTP VERB | DESCRIPTION                                             |
+| ---------------- | --------- | ------------------------------------------------------- |
+| /api/users       | GET       | Get all users                                           |
+| /auth/users      | POST      | Create a new user                                       |
+| /api/users/<id>  | GET       | Get a user with an id which is an integer               |
+| /auth/users/<id> | PUT       | Update user credentials except the password             |
+| /auth/users/<id> | PATCH     | Update a user's password.You need a user's old password |
 
 ### Run the backend with
 
@@ -36,6 +41,10 @@ Get this project
 
 Set the flask environment variables
 
+#### `cd food-tracker-app`
+
+#### `pipenv shell`
+
 #### `export FLASK_APP=run.py`
 
 You can also set debug mode in case you want to develop (Optional)
@@ -44,7 +53,7 @@ You can also set debug mode in case you want to develop (Optional)
 
 Finally run with
 
-#### flask run
+#### `flask run `
 
 ## Contributors
 
