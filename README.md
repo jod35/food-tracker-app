@@ -25,13 +25,13 @@ On the other hand the `/auth` routes are for user authentication and authorizati
 
 ### A table about the API
 
-| ENDPOINT         | HTTP VERB | DESCRIPTION                                             |
-| ---------------- | --------- | ------------------------------------------------------- |
-| /api/users       | GET       | Get all users                                           |
-| /auth/users      | POST      | Create a new user                                       |
-| /api/users/<id>  | GET       | Get a user with an id which is an integer               |
-| /auth/users/<id> | PUT       | Update user credentials except the password             |
-| /auth/users/<id> | PATCH     | Update a user's password.You need a user's old password |
+| ENDPOINT         | HTTP VERB | DESCRIPTION                                                                   |
+| ---------------- | --------- | ----------------------------------------------------------------------------- |
+| /api/users       | GET       | Get all users                                                                 |
+| /auth/users      | POST      | Create a new user using a username, an email and a password                   |
+| /api/users/<id>  | GET       | Get a user with an id which is an integer                                     |
+| /auth/users/<id> | PUT       | Update user credentials except the password (email and username)              |
+| /auth/users/<id> | PATCH     | Update a user's password.You need a user's old password and your new password |
 
 ### Run the backend with
 
