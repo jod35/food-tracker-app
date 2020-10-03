@@ -25,6 +25,11 @@ class User(db.Model):
         db.session.delete(self)
         db.session.commit()
 
+    def reset_password(self, old_password, new_password):
+        if check_password_hash(self.password, old_password) and new_password:
+            self.password = new_password
+            db.session.commit()
+
     def save(self):
         db.session.add(self)
         db.session.commit()

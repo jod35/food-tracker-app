@@ -74,20 +74,17 @@ def reset_password(id):
     if data['new_password']:
         new_password = data['new_password']
 
-    if user_to_update.check_password(old_password) and new_password:
-        user_to_update.password = new_password
-        db.session.commit()
-        return make_response(
-            jsonify(
-                {
-                    "message": "Password Reset Successfull",
-                    "success": True
-                }
-            )
-        )
+    user_to_update.reset_password(old_password, new_password)
 
-    else:
-        return make_response(jsonify({"Please provide the last password you used."}))
+    return make_response(
+        jsonify(
+            {
+                "message": "Password Reset Successfull",
+                "success": True
+            }
+        )
+    )
+
 
 # update a user account
 # update a users' credentials
