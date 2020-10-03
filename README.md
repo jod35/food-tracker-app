@@ -55,6 +55,10 @@ Finally run with
 
 #### `flask run `
 
+## Testing
+
+To test the API, just run `pytest`
+
 ## Contributors
 
 - [Ssali Jonathan](https://github.com/jod35)
