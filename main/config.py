@@ -17,3 +17,4 @@ class DevConfig(Config):
 
 class TestConfig:
     SQLALCHEMY_DATABASE_URI = 'sqlite:///'
+    SQLALCHEMY_ECHO = False
